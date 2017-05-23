@@ -1,33 +1,50 @@
-<section class="alt-section section-work">
-  
+<section class="section-work">
+
   <h3 id="work">Work</h3>
-  
+  {% for project in site.data.settings.projects %}
+    <input type="radio" name="trigger" class="trigger" id="{{ project.folder }}" />
+  {% endfor %}
+
+  <input type="radio" name="trigger" id="return" class="return" />
+
   <div class="work-belt">
-    
+
     <div class="thumb-wrap">
       <div class="thumb-container">
       {% for project in site.data.settings.projects %}
-      <div class="thumb-unit" style="background-image: url(/assets/img/work/{{project.folder}}/thumb.jpg);"> 
+      <label for="{{ project.folder }}">
+        <div class="thumb-unit" data-url="{{ site.github.url }}/work/{{ project.folder }}/">
+          <img src="{{ site.github.url }}/assets/img/work/{{project.folder}}/thumb.jpg" alt="{{ project.name }}" />
+        </div>
         <div class="thumb-overlay">
           <strong>{{ project.name }}</strong>
         </div>
-      </div>
+      </label>
       {% endfor %}
     </div>
     </div>
-    
+
     <div class="work-wrap">
       <div class="work-container">
-      <div class="work-return">{% include icons/icon-back.html %}</div>
-      <h4>Typo International Design Talks</h4>
-      <div style="max-width: 600px; height: 500px; background: #ccc;"></div>
-      <p>Etiam at risus et justo dignissim congue. Donec congue lacinia dui, a.</p>
-      <div style="max-width: 600px; height: 500px; background: #ccc;"></div>
-      <p>Etiam at risus et justo dignissim congue. Donec congue lacinia dui, a.</p>
-      <div style="max-width: 600px; height: 500px; background: #ccc;"></div>
-      <p>Etiam at risus et justo dignissim congue. Donec congue lacinia dui, a.</p>
+      <label for="return">
+        <div class="work-return">{% include icons/icon-back.html %}</div>
+      </label>
+      <h4 class="project-title"></h4>
+      <div class="project-load"></div>
+
+      <noscript>
+        {% for project in site.data.settings.projects %}
+          <div class="noscript" id="content-{{ project.folder }}">
+            <h4 class="project-title">{{ project.name }}</h4>
+            <div class="noscript-load">
+              {% include {{project.file}} %}
+            </div>
+          </div>
+        {% endfor %}
+      </noscript>
+
     </div>
     </div>
-    
+
   </div>
 </section>
